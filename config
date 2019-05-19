@@ -54,8 +54,8 @@
 ;;; Load extra configuration files
 (load (concat (getenv "HOME") "/.config/stumpwm/theme.lisp")) ;; color-scheme
 (load (concat (getenv "HOME") "/.config/stumpwm/groups.lisp")) ;; Frame-preferences and groups mapping
-(load (concat (getenv "HOME") "/.config/stumpwm/defcommand.lisp")) ;; Frame-preferences and groups mapping
-(load (concat (getenv "HOME") "/.config/stumpwm/keybinds.lisp")) ;; Frame-preferences and groups mapping
+(load (concat (getenv "HOME") "/.config/stumpwm/defcommands.lisp")) ;; Frame-preferences and groups mapping
+(load (concat (getenv "HOME") "/.config/stumpwm/keybinding.lisp")) ;; Frame-preferences and groups mapping
 
 ;; Set stumpwm values
 (setf
@@ -82,7 +82,6 @@
                   #'(lambda (win) (stumpwm:repack-window-numbers)))
 
 ;; Slime server
-(in-package :stumpwm)
 (require :swank)
 (swank-loader:init)
 (swank:create-server :port 4004
