@@ -35,35 +35,29 @@
 ;;; Code:
 
 ;;;; change the prefix key to something else
-(set-prefix-key (kbd "s-c"))
 
-;;;; Default terminal emulator
+;;;; Defaults programs
 (setq *terminal* "kitty")
+(setq *browser* "firefox")
 
-;;; Load-files
+;;; Load modules
+(set-module-dir
+ (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/util")))
 
+(load-module "end-session")
+(load-module "pass")
+(load-module "stumptray")
+(load-module "ttf-fonts")
+
+(ql:quickload "clx-truetype") ;; Used for font rendering
+
+;;; Load extra configuration files
 (load (concat (getenv "HOME") "/.config/stumpwm/theme.lisp")) ;; color-scheme
 (load (concat (getenv "HOME") "/.config/stumpwm/groups.lisp")) ;; Frame-preferences and groups mapping
+(load (concat (getenv "HOME") "/.config/stumpwm/defcommand.lisp")) ;; Frame-preferences and groups mapping
+(load (concat (getenv "HOME") "/.config/stumpwm/keybinds.lisp")) ;; Frame-preferences and groups mapping
 
-(define-key *root-map* (kbd "f")            "firefox")
-(define-key *root-map* (kbd "s-f")            "firefox")
-(define-key *root-map* (kbd "t")            "thunderbird")
-(define-key *root-map* (kbd "s-t")            "thunderbird")
-(define-key *root-map* (kbd "p")            "pass-copy-menu")
-(define-key *root-map* (kbd "s-p")            "pass-copy-menu")
-
-;; Frames navigation
-(loop for (vi-key name) in '(("k" "up")
-                             ("j" "down")
-                             ("h" "left")
-                             ("l" "right"))
-      do (let ((key-combo (format nil "s-~A" vi-key))
-               (shifted-key-combo (format nil "s-~A" (string-upcase vi-key))))
-           (define-key *top-map* (kbd key-combo)
-             (format nil "move-focus ~A" name))
-           (define-key *top-map* (kbd shifted-key-combo)
-             (format nil "move-window ~A" name))))
-;; Configuration values
+;; Set stumpwm values
 (setf
    *startup-message                 "Get shit done."
    ;; Mouse settings
@@ -83,17 +77,9 @@
    *input-window-gravity*           :center
  )
 
-;;;; top-map splits
-(define-key *top-map* (kbd "s-u") "vsplit")
-(define-key *top-map* (kbd "s-o") "hsplit")
-(define-key *top-map* (kbd "s-r") "remove")
-(define-key *top-map* (kbd "s-f") "fullscreen")
-;; Quit menu
-(define-key *top-map* (kbd "s-)") "end-session")
-
-;; Launcher && terminal
-(define-key *top-map* (kbd "s-RET") (concat "run-shell-command exec " *terminal*))
-(define-key *top-map* (kbd "s-d") "run-shell-command rofi -show run")
+;; Recount windows number on kill
+(stumpwm:add-hook stumpwm:*destroy-window-hook*
+                  #'(lambda (win) (stumpwm:repack-window-numbers)))
 
 ;; Slime server
 (in-package :stumpwm)
@@ -103,8 +89,7 @@
                      :style swank:*communication-style*
                      :dont-close t)
 
-;; Stuff to run on startup
-
+;; Stuff to run on startup ;; TODO use initialize
 (run-shell-command "volumeicon")
 (run-shell-command "xfce4-power-manager")
 (run-shell-command "nm-applet")
@@ -115,102 +100,11 @@
 (run-shell-command "feh --bg-fill /home/notarock/Pictures/wallpaper/selected*")
 (run-shell-command "xset b off")
 
-(set-module-dir
- (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/util")))
-
-(load-module "end-session")
-(load-module "pass")
-
-;; Set font
-(ql:quickload "clx-truetype")
-(load-module "ttf-fonts")
-(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 12))
-
-;; Workspace & navigation
-
-;; Brightness & volumes control
-(defcommand backlight-up () ()
-  "Up backlight by 20"
-  (run-shell-command "xbacklight + 20"))
-
-(defcommand backlight-down () ()
-  "Up backlight by 20"
-  (run-shell-command "xbacklight - 20"))
-
-(defcommand volume-mute () ()
-  "Mute / Unmute volume"
-  (run-shell-command "amixer set Master toggle"))
-
-(defcommand volume-up () ()
-  "Mute / Unmute volume"
-  (run-shell-command "pactl -- set-sink-volume 0 +10% && notify-send 'Volume +10'"))
-
-(defcommand volume-down () ()
-  "Mute / Unmute volume"
-  (run-shell-command "pactl -- set-sink-volume 0 -10% && notify-send 'Volume -10'"))
-
-(define-key *top-map* (kbd "XF86MonBrightnessUp") "backlight-up")
-(define-key *top-map* (kbd "XF86MonBrightnessDown") "backlight-down")
-
-(define-key *top-map* (kbd "XF86AudioMute") "volume-mute")
-(define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume-up")
-(define-key *top-map* (kbd "XF86AudioLowerVolume") "volume-down")
-
-;; Show currently pressed key sequence
-(defun show-key-seq (key seq val)
-  (message (print-key-seq (reverse seq))))
-;; (add-hook *key-press-hook* 'show-key-seq)
-
-;; Recount windows number on kill
-(stumpwm:add-hook stumpwm:*destroy-window-hook*
-                  #'(lambda (win) (stumpwm:repack-window-numbers)))
-
-;; Web jump macro
-(defmacro make-web-jump (name prefix)
-  `(defcommand ,(intern name) (search) ((:rest ,(concatenate 'string name " search: ")))
-     (substitute #\+ #\Space search)
-     (run-shell-command (concatenate 'string ,prefix search "'"))))
-
-;; Define a duckduckgo search in firefox
-(make-web-jump "duckduckgo" "firefox 'https://duckduckgo.com/?q=")
-(define-key *top-map* (kbd "s-s") "duckduckgo")
-
-;; Load system tray
-(load-module "stumptray")
+;; Open mail client
+(run-or-raise "thunderbird" '(:class "Thunderbird"))
 
 ;; Load mode-line configuration and activate system tray
 (load (concat (getenv "HOME") "/.config/stumpwm/mode-line.lisp"))
 (stumptray:stumptray)
-
-;; Open mail client
-(run-or-raise "thunderbird" '(:class "Thunderbird"))
-
-(defcommand adjust-new-display () ()
-  "Refresh heads to fit the new layout and restart stumptray"
-  (refresh-heads)         ;; Refresh mode-line and heads size after xrandr update
-  (stumptray:stumptray)   ;; Disable strumptray
-  (stumptray:stumptray)   ;; Enable strumptray, centered on the newly-placed mode-line
-  )
-
-(defcommand set-layout (file) ()
-  "Load a xrandr configuration and adjust display"
-  (message (concatenate 'string "Applying " file " layout...") )
-  (run-shell-command (concatenate 'string "~/.screenlayout/" file ".sh"))
-  (adjust-new-display))
-
-(defcommand choose-display-layout () ()
-  "Interactivement chose a xrandr display config"
-  (let ((choice (select-from-menu (current-screen) *screen-layout-menu*
-                                  "Choose screen layout: ")))
-    (when choice
-      (set-layout (string-downcase (string (second choice)))))))
-
-(defvar *screen-layout-menu*
-  (list (list "Laptop 2k" "laptop")
-        (list "Bureau" "bureau")
-        (list "Work (2x 1080p)"  "work")
-        (list "Mirrored 1080p" "mirrored")))
-
-(define-key *top-map* (kbd "XF86Display") "choose-display-layout")
 
 ;; End of file

@@ -35,19 +35,6 @@
 
 (in-package :stumpwm)
 
-;;;; Most used programs
-(defcommand thunderbird () ()
-  "Run-or-Raise Thunderbird"
-  (run-or-raise "thunderbird" '(:class "Thunderbird")))
-
-(defcommand firefox () ()
-  "Run-or-Raise Firefox"
-  (run-or-raise "firefox" '(:class "Firefox")))
-
-(defcommand emacs () ()
-  "Run-or-Raise Emacs"
-  (run-or-raise "emacs" '(:class "Emacs")))
-
 ;;;; Frame Preferences
 
 (define-frame-preference "Default"

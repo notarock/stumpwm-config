@@ -1,3 +1,4 @@
+
 ; -*- mode: lisp; -*-
 ;                                   _            ,__ __
 ;    ()                            (_|   |   |_//|  |  |
@@ -35,31 +36,13 @@
 
 (in-package :stumpwm)
 
-;; Current Color Scheme :
-;; Base16-summerfruit
-(setf *colors* (list "#202020"      ; 0 black
-                     "#ff0086"      ; 1 Red
-                     "#00c918"      ; 2 Green
-                     "#aba800"      ; 3 Yellow
-                     "#3777e6"      ; 4 Blue
-                     "#ad00a1"      ; 5 Magenta
-                     "#1faaaa"      ; 6 Cyan
-                     "#ffffff"      ; 7 White
-                     "#505050"      ; 8 Gray
-                     "#fd8900"      ; 9 orange
-                     "#151515"))    ; 10 bg
+;; Web jump macro
+(defmacro make-web-jump (name prefix)
+  `(defcommand ,(intern name) (search) ((:rest ,(concatenate 'string name " search: ")))
+     (substitute #\+ #\Space search)
+     (run-shell-command (concatenate 'string ,prefix search "'"))))
 
-(set-fg-color         (nth 7 *colors*))
-(set-bg-color         (nth 10 *colors*))
-(set-border-color     (nth 2 *colors*))
-(set-focus-color      (nth 6 *colors* ))
-(set-unfocus-color    (nth 10 *colors* ))
-(set-float-focus-color      (nth 6 *colors* ))
-(set-float-unfocus-color    (nth 10 *colors* ))
-
-(update-color-map (current-screen))
-
-;; Font configuration
-(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 12))
+;; Define a duckduckgo search in firefox
+(make-web-jump "duckduckgo" "firefox 'https://duckduckgo.com/?q=") ;; TODO: Make uses of global var *browser*
 
 ;; End of file

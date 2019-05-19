@@ -35,31 +35,30 @@
 
 (in-package :stumpwm)
 
-;; Current Color Scheme :
-;; Base16-summerfruit
-(setf *colors* (list "#202020"      ; 0 black
-                     "#ff0086"      ; 1 Red
-                     "#00c918"      ; 2 Green
-                     "#aba800"      ; 3 Yellow
-                     "#3777e6"      ; 4 Blue
-                     "#ad00a1"      ; 5 Magenta
-                     "#1faaaa"      ; 6 Cyan
-                     "#ffffff"      ; 7 White
-                     "#505050"      ; 8 Gray
-                     "#fd8900"      ; 9 orange
-                     "#151515"))    ; 10 bg
+(defcommand adjust-new-display () ()
+  "Refresh heads to fit the new layout and restart stumptray"
+  (refresh-heads)         ;; Refresh mode-line and heads size after xrandr update
+  (stumptray:stumptray)   ;; Disable strumptray
+  (stumptray:stumptray)   ;; Enable strumptray, centered on the newly-placed mode-line
+  )
 
-(set-fg-color         (nth 7 *colors*))
-(set-bg-color         (nth 10 *colors*))
-(set-border-color     (nth 2 *colors*))
-(set-focus-color      (nth 6 *colors* ))
-(set-unfocus-color    (nth 10 *colors* ))
-(set-float-focus-color      (nth 6 *colors* ))
-(set-float-unfocus-color    (nth 10 *colors* ))
+(defcommand set-layout (file) ()
+  "Load a xrandr configuration and adjust display"
+  (message (concatenate 'string "Applying " file " layout...") )
+  (run-shell-command (concatenate 'string "~/.screenlayout/" file ".sh"))
+  (adjust-new-display))
 
-(update-color-map (current-screen))
+(defcommand choose-display-layout () ()
+  "Interactivement chose a xrandr display config"
+  (let ((choice (select-from-menu (current-screen) *screen-layout-menu*
+                                  "Choose screen layout: ")))
+    (when choice
+      (set-layout (string-downcase (string (second choice)))))))
 
-;; Font configuration
-(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 12))
+(defvar *screen-layout-menu*
+  (list (list "Laptop 2k" "laptop")
+        (list "Bureau" "bureau")
+        (list "Work (2x 1080p)"  "work")
+        (list "Mirrored 1080p" "mirrored")))
 
 ;; End of file

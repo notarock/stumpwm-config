@@ -35,31 +35,43 @@
 
 (in-package :stumpwm)
 
-;; Current Color Scheme :
-;; Base16-summerfruit
-(setf *colors* (list "#202020"      ; 0 black
-                     "#ff0086"      ; 1 Red
-                     "#00c918"      ; 2 Green
-                     "#aba800"      ; 3 Yellow
-                     "#3777e6"      ; 4 Blue
-                     "#ad00a1"      ; 5 Magenta
-                     "#1faaaa"      ; 6 Cyan
-                     "#ffffff"      ; 7 White
-                     "#505050"      ; 8 Gray
-                     "#fd8900"      ; 9 orange
-                     "#151515"))    ; 10 bg
+;;;; Run or raise most used programs
+(defcommand thunderbird () ()
+  "Run-or-Raise Thunderbird"
+  (run-or-raise "thunderbird" '(:class "Thunderbird")))
 
-(set-fg-color         (nth 7 *colors*))
-(set-bg-color         (nth 10 *colors*))
-(set-border-color     (nth 2 *colors*))
-(set-focus-color      (nth 6 *colors* ))
-(set-unfocus-color    (nth 10 *colors* ))
-(set-float-focus-color      (nth 6 *colors* ))
-(set-float-unfocus-color    (nth 10 *colors* ))
+(defcommand firefox () ()
+  "Run-or-Raise Firefox"
+  (run-or-raise "firefox" '(:class "Firefox")))
 
-(update-color-map (current-screen))
+(defcommand emacs () ()
+  "Run-or-Raise Emacs"
+  (run-or-raise "emacs" '(:class "Emacs")))
 
-;; Font configuration
-(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 12))
+;; Brightness control
+(defcommand backlight-up () ()
+  "Up backlight by 20"
+  (run-shell-command "xbacklight + 20"))
+
+(defcommand backlight-down () ()
+  "Up backlight by 20"
+  (run-shell-command "xbacklight - 20"))
+
+;; Volumes control
+(defcommand volume-mute () ()
+  "Mute / Unmute volume"
+  (run-shell-command "amixer set Master toggle"))
+
+(defcommand volume-up () ()
+  "Mute / Unmute volume"
+  (run-shell-command "pactl -- set-sink-volume 0 +10% && notify-send 'Volume +10'"))
+
+(defcommand volume-down () ()
+  "Mute / Unmute volume"
+  (run-shell-command "pactl -- set-sink-volume 0 -10% && notify-send 'Volume -10'"))
+
+;; Load helpers
+(load (concat (getenv "HOME") "/.config/stumpwm/helper/xrandr.lisp")) ;; Frame-preferences and groups mapping
+(load (concat (getenv "HOME") "/.config/stumpwm/helper/web-jump.lisp")) ;; Frame-preferences and groups mapping
 
 ;; End of file
