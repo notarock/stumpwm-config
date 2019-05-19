@@ -73,5 +73,6 @@
 ;; Load helpers
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/xrandr.lisp")) ;; Frame-preferences and groups mapping
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/web-jump.lisp")) ;; Frame-preferences and groups mapping
+(load (concat (getenv "HOME") "/.config/stumpwm/helper/confirm-command.lisp")) ;; Frame-preferences and groups mapping
 
 ;; End of file

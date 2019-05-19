@@ -57,6 +57,10 @@
 (load (concat (getenv "HOME") "/.config/stumpwm/defcommands.lisp")) ;; Frame-preferences and groups mapping
 (load (concat (getenv "HOME") "/.config/stumpwm/keybinding.lisp")) ;; Frame-preferences and groups mapping
 
+(if *initializing*
+(load (concat (getenv "HOME") "/.config/stumpwm/on-init.lisp")) ;; Frame-preferences and groups mapping
+)
+
 ;; Set stumpwm values
 (setf
    *startup-message                 "Get shit done."
@@ -80,27 +84,6 @@
 ;; Recount windows number on kill
 (stumpwm:add-hook stumpwm:*destroy-window-hook*
                   #'(lambda (win) (stumpwm:repack-window-numbers)))
-
-;; Slime server
-(require :swank)
-(swank-loader:init)
-(swank:create-server :port 4004
-                     :style swank:*communication-style*
-                     :dont-close t)
-
-;; Stuff to run on startup ;; TODO use initialize
-(run-shell-command "volumeicon")
-(run-shell-command "xfce4-power-manager")
-(run-shell-command "nm-applet")
-(run-shell-command "blueman-adapter")
-(run-shell-command "blueman-applet")
-(run-shell-command "dunst")
-(run-shell-command "xrdb .Xresources")
-(run-shell-command "feh --bg-fill /home/notarock/Pictures/wallpaper/selected*")
-(run-shell-command "xset b off")
-
-;; Open mail client
-(run-or-raise "thunderbird" '(:class "Thunderbird"))
 
 ;; Load mode-line configuration and activate system tray
 (load (concat (getenv "HOME") "/.config/stumpwm/mode-line.lisp"))

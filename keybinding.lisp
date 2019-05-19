@@ -32,13 +32,10 @@
 ;; Here lies all of my keybinds.
 
 ;;; Code:
+(in-package :stumpwm)
 
+;;; Code:
 (set-prefix-key (kbd "s-c"))
-
-;; All top-map command (Does not require the use of prefix-key)
-
-;; Navigation
-
 
 ;; Frames navigation using HJKL
 (loop for (vi-key name) in '(("k" "up")
@@ -75,7 +72,7 @@
 (define-key *top-map* (kbd "s-0") "vgroups")
 
 ;; Launcher && terminal
-(define-key *top-map* (kbd "s-RET") (concat "run-shell-command exec " *terminal*))
+(define-key *top-map* (kbd "s-RET") (concat "run-shell-command exec " "kitty"))
 (define-key *top-map* (kbd "s-d") "run-shell-command rofi -show run")
 
 ;; Brightness
@@ -101,5 +98,7 @@
 (define-key *top-map* (kbd "s-s") "duckduckgo")
 ;; Select xrandr configuration (uses ~/.screensession folder)
 (define-key *top-map* (kbd "XF86Display") "choose-display-layout")
+
+(define-key *top-map* (kbd "s-R") "ask-confirmation-loadrc")
 
 ;; End of file
