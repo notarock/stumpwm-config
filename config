@@ -40,30 +40,10 @@
 ;;;; Default terminal emulator
 (setq *terminal* "kitty")
 
-;;;; Most used programs
-(defcommand thunderbird () ()
-  "Run-or-Raise Thunderbird"
-  (run-or-raise "thunderbird" '(:class "Thunderbird")))
+;;; Load-files
 
-(defcommand firefox () ()
-  "Run-or-Raise Firefox"
-  (run-or-raise "firefox" '(:class "Firefox")))
-
-(defcommand emacs () ()
-  "Run-or-Raise Emacs"
-  (run-or-raise "emacs" '(:class "Emacs")))
-
-(define-frame-preference "Default"
-  ;; frame raise lock (lock AND raise == jumpto)
-  (0 t   t :class "Firefox"))
-
-(define-frame-preference "MAIL"
-  ;; frame raise lock (lock AND raise == jumpto)
-  (0 t   t :class "Thunderbird"))
-
-(define-frame-preference "EMACS"
-  ;; frame raise lock (lock AND raise == jumpto)
-  (0 t   t :class "Emacs"))
+(load (concat (getenv "HOME") "/.config/stumpwm/theme.lisp")) ;; color-scheme
+(load (concat (getenv "HOME") "/.config/stumpwm/groups.lisp")) ;; Frame-preferences and groups mapping
 
 (define-key *root-map* (kbd "f")            "firefox")
 (define-key *root-map* (kbd "s-f")            "firefox")
@@ -71,10 +51,6 @@
 (define-key *root-map* (kbd "s-t")            "thunderbird")
 (define-key *root-map* (kbd "p")            "pass-copy-menu")
 (define-key *root-map* (kbd "s-p")            "pass-copy-menu")
-
-;;; Load-files
-
-(load (concat (getenv "HOME") "/.config/stumpwm/theme.lisp")) ;; color-scheme
 
 ;; Frames navigation
 (loop for (vi-key name) in '(("k" "up")
@@ -152,36 +128,6 @@
 
 ;; Workspace & navigation
 
-;; DEFAUT = 1
-(define-key *top-map* (kbd "s-1") "gselect 1")
-
-(gnewbg "EMACS") ;; 2
-(define-key *top-map* (kbd "s-2") "gselect 2")
-
-(gnewbg "TERM") ;; 3
-(define-key *top-map* (kbd "s-3") "gselect 3")
-
-(gnewbg "MISC") ;; 4
-(define-key *top-map* (kbd "s-4") "gselect 4")
-
-(gnewbg-float "FLOAT") ;; 5
-(define-key *top-map* (kbd "s-5") "gselect 5")
-
-(gnewbg "MUSIC") ;; 8
-(define-key *top-map* (kbd "s-8") "gselect 6")
-
-(gnewbg "MAIL") ;; 9
-(define-key *top-map* (kbd "s-9") "gselect 7")
-
-(define-key *top-map* (kbd "s-m") "gmove")
-
-(define-key *top-map* (kbd "s--") "gprev")
-(define-key *top-map* (kbd "s-=") "gnext")
-
-;; Show where is what
-(define-key *top-map* (kbd "s-0") "vgroups")
-
-
 ;; Brightness & volumes control
 (defcommand backlight-up () ()
   "Up backlight by 20"
@@ -250,7 +196,7 @@
   "Load a xrandr configuration and adjust display"
   (message (concatenate 'string "Applying " file " layout...") )
   (run-shell-command (concatenate 'string "~/.screenlayout/" file ".sh"))
-  (adjust-new-display)))
+  (adjust-new-display))
 
 (defcommand choose-display-layout () ()
   "Interactivement chose a xrandr display config"
