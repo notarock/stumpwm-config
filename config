@@ -1,5 +1,4 @@
 ; -*- mode: lisp; -*-
-;debian=lisp
 ;                                   _            ,__ __
 ;    ()                            (_|   |   |_//|  |  |
 ;    /\_|_         _  _  _     _     |   |   |   |  |  |
@@ -13,7 +12,7 @@
 ;   \___/\_/  | |_/|_/|/\/|/
 ;                  |)    (|
 ;
-;; Copyright © 2018, 2019 Roch D'amour
+;; Copyright © 2018, 2019 Roch D'amour (notarock)
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -73,6 +72,10 @@
 (define-key *root-map* (kbd "p")            "pass-copy-menu")
 (define-key *root-map* (kbd "s-p")            "pass-copy-menu")
 
+;;; Load-files
+
+(load (concat (getenv "HOME") "/.config/stumpwm/theme.lisp")) ;; color-scheme
+
 ;; Frames navigation
 (loop for (vi-key name) in '(("k" "up")
                              ("j" "down")
@@ -84,28 +87,6 @@
              (format nil "move-focus ~A" name))
            (define-key *top-map* (kbd shifted-key-combo)
              (format nil "move-window ~A" name))))
-
-;; Base16-summerfruit
-(setf *colors* (list "#202020"      ; 0 black
-                     "#ff0086"      ; 1 Red
-                     "#00c918"      ; 2 Green
-                     "#aba800"      ; 3 Yellow
-                     "#3777e6"      ; 4 Blue
-                     "#ad00a1"      ; 5 Magenta
-                     "#1faaaa"      ; 6 Cyan
-                     "#ffffff"      ; 7 White
-                     "#505050"      ; 8 Gray
-                     "#fd8900"      ; 9 orange
-                     "#151515"))    ; 10 bg
-
-(set-fg-color         (nth 7 *colors*))
-(set-bg-color         (nth 10 *colors*))
-(set-border-color     (nth 2 *colors*))
-(set-focus-color      (nth 6 *colors* ))
-(set-unfocus-color    (nth 10 *colors* ))
-(set-float-focus-color      (nth 6 *colors* ))
-(set-float-unfocus-color    (nth 10 *colors* ))
-
 ;; Configuration values
 (setf
    *startup-message                 "Get shit done."
@@ -125,8 +106,6 @@
    *timeout-wait*                   10
    *input-window-gravity*           :center
  )
-
-(update-color-map (current-screen))
 
 ;;;; top-map splits
 (define-key *top-map* (kbd "s-u") "vsplit")
@@ -164,7 +143,6 @@
  (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/util")))
 
 (load-module "end-session")
-
 (load-module "pass")
 
 ;; Set font
