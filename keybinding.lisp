@@ -29,7 +29,7 @@
 
 ;;; Commentary:
 
-;; Here lies all of my keybinds.
+;; All my keybinds.
 
 ;;; Code:
 (in-package :stumpwm)

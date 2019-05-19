@@ -29,10 +29,9 @@
 
 ;;; Commentary:
 
-;;; This file define all frame-preferences, groups 
+;;; This file define all frame-preferences and groups
 
 ;;; Code:
-
 (in-package :stumpwm)
 
 ;;;; Frame Preferences

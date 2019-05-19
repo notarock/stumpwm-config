@@ -29,7 +29,8 @@
 
 ;;; Commentary:
 
-;;; All eye-candy belongs here
+;;; Change xorg display settings easily using select-from-menu and .screenlayout
+;;; files (generated using arandr)
 
 ;;; Code:
 

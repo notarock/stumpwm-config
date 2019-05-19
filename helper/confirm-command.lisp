@@ -29,7 +29,7 @@
 
 ;;; Commentary:
 
-;;; All eye-candy belongs here
+;;; Redefine some commands with a confirmation prompt
 
 ;;; Code:
 

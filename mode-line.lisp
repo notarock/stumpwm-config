@@ -1,14 +1,48 @@
+; -*- mode: lisp; -*-
+;                                   _            ,__ __
+;    ()                            (_|   |   |_//|  |  |
+;    /\_|_         _  _  _     _     |   |   |   |  |  |
+;   /  \|  |   |  / |/ |/ |  |/ \_   |   |   |   |  |  |
+;  /(__/|_/ \_/|_/  |  |  |_/|__/     \_/ \_/    |  |  |_/
+;                           /|
+;                           \|
+;    __
+;   / ()  _        |\ o  _,
+;  |     / \_/|/|  |/ | / |
+;   \___/\_/  | |_/|_/|/\/|/
+;                  |)    (|
+;
+;; Copyright © 2018, 2019 Roch D'amour (notarock)
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;;; Mode-line format and modules configuration
+
+;;; Code:
+
 (in-package :stumpwm)
 
+;; mode-line utility modules
 (set-module-dir
  (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/modeline")))
 
-(load-module "cpu") ;; contrib
-;; (load-module "disk") ;; contrib
-;; (load "/home/simon/stumpwm/gmail.lisp") ;; Personal.
+(load-module "cpu")
 (load-module "mem")
 (load-module "net")
-(load-module "wifi") ;; contrib
+(load-module "wifi")
 
 (setf *time-modeline-string* "%a %m-%d ^5*^B%l:%M^b^n")
 
@@ -21,38 +55,28 @@
 
 (setf stumpwm:*screen-mode-line-format*
       (list
-       "^B[^b"
+       "^B[^b"                      ; [
        "^1*%n^n"                    ; Current Group
-       "^B]^b"
-       " ^2*/^n "                     ; Separator groupn / focus
-       "^7*^B%W^b^n"                ; Focus indicator
-       *separator-left*
-       "^>"                         ; right align
-       *separator-right*
+       "^B]^b"                      ; ]
+       " ^2*/^n "                   ; ---
+       "^7*^B%W^b^n"                ; Focused frame
+       *separator-left*             ; ---
+       "^>"                         ; middle
+       *separator-right*            ; ---
        "^3*^b%C"                    ; cpu
-       *separator-right*
+       *separator-right*            ; ---
        "^2*^b%M"                    ; Memory
-       *separator-right*
-       "^6*[^n^B%I^b^6*]^n %l"         ; Wifi
-       *separator-right*
-       ;; "^5*^b%D"                    ; disk
-       ;; *separator-right*
+       *separator-right*            ; ---
+       "^6*[^n^B%I^b^6*]^n %l"      ; Wifi
+       *separator-right*            ; ---
        '(:eval (string-right-trim '(#\Newline) (run-shell-command
-                                                ;; "date +'%a %m-%d ^6*^B%l:%M^b^n %p'|tr -d '\\n'"
-                                                ;; uses date command so time can be bold
                                                 "date +'^B%m-%d ^6*%R^b'" t)))
-       *separator-right*
-       "          "                      ; free space for stumptray
+       *separator-right*            ; ---
+       "          "                 ; free space for stumptray
        ))
 
-(defcommand uaml () ()
-  ""
-  (update-all-mode-lines))
-
 (dolist (head
-         (list (first (screen-heads (current-screen)))) ; first
-         ;; (screen-heads (current-screen)) ; all
-         )
+         (list (first (screen-heads (current-screen)))))
   (enable-mode-line (current-screen) head
                     t *screen-mode-line-format*))
 

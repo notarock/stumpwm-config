@@ -30,7 +30,7 @@
 
 ;;; Commentary:
 
-;;; All eye-candy belongs here
+;;; Powerfull web-search prompt
 
 ;;; Code:
 

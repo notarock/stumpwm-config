@@ -29,7 +29,7 @@
 
 ;;; Commentary:
 
-;;; All eye-candy belongs here
+;;; On startup commands & actions
 
 ;;; Code:
 
@@ -43,13 +43,13 @@
 (run-shell-command "blueman-applet")
 (run-shell-command "dunst")
 (run-shell-command "xrdb .Xresources")
-(run-shell-command "feh --bg-fill /home/notarock/Pictures/wallpaper/selected*")
+(run-shell-command "feh --bg-fill ~/Pictures/wallpaper/selected*")
 (run-shell-command "xset b off")
 
-;; Open mail client
+;; Open and focus mail client
 (run-or-raise "thunderbird" '(:class "Thunderbird"))
 
-;; Slime server
+;; Start swank server for use with Slime
 (require :swank)
 (swank-loader:init)
 (swank:create-server :port 4004

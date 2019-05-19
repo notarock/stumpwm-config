@@ -29,7 +29,7 @@
 
 ;;; Commentary:
 
-;;; All eye-candy belongs here
+;;; Define usefull commands and load helpers
 
 ;;; Code:
 
