@@ -1,0 +1,292 @@
+; -*- mode: lisp; -*-
+;debian=lisp
+;                                   _            ,__ __
+;    ()                            (_|   |   |_//|  |  |
+;    /\_|_         _  _  _     _     |   |   |   |  |  |
+;   /  \|  |   |  / |/ |/ |  |/ \_   |   |   |   |  |  |
+;  /(__/|_/ \_/|_/  |  |  |_/|__/     \_/ \_/    |  |  |_/
+;                           /|
+;                           \|
+;    __
+;   / ()  _        |\ o  _,
+;  |     / \_/|/|  |/ | / |
+;   \___/\_/  | |_/|_/|/\/|/
+;                  |)    (|
+;
+;; Copyright © 2018, 2019 Roch D'amour
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Commentary:
+
+;; Thansk to everyone who made their stumpwm config public.
+;; Without you, this wouldn't be a thing :)
+
+;;; Code:
+
+;;;; change the prefix key to something else
+(set-prefix-key (kbd "s-c"))
+
+;;;; Default terminal emulator
+(setq *terminal* "kitty")
+
+;;;; Most used programs
+(defcommand thunderbird () ()
+  "Run-or-Raise Thunderbird"
+  (run-or-raise "thunderbird" '(:class "Thunderbird")))
+
+(defcommand firefox () ()
+  "Run-or-Raise Firefox"
+  (run-or-raise "firefox" '(:class "Firefox")))
+
+(defcommand emacs () ()
+  "Run-or-Raise Emacs"
+  (run-or-raise "emacs" '(:class "Emacs")))
+
+(define-frame-preference "Default"
+  ;; frame raise lock (lock AND raise == jumpto)
+  (0 t   t :class "Firefox"))
+
+(define-frame-preference "MAIL"
+  ;; frame raise lock (lock AND raise == jumpto)
+  (0 t   t :class "Thunderbird"))
+
+(define-frame-preference "EMACS"
+  ;; frame raise lock (lock AND raise == jumpto)
+  (0 t   t :class "Emacs"))
+
+(define-key *root-map* (kbd "f")            "firefox")
+(define-key *root-map* (kbd "s-f")            "firefox")
+(define-key *root-map* (kbd "t")            "thunderbird")
+(define-key *root-map* (kbd "s-t")            "thunderbird")
+(define-key *root-map* (kbd "p")            "pass-copy-menu")
+(define-key *root-map* (kbd "s-p")            "pass-copy-menu")
+
+;; Frames navigation
+(loop for (vi-key name) in '(("k" "up")
+                             ("j" "down")
+                             ("h" "left")
+                             ("l" "right"))
+      do (let ((key-combo (format nil "s-~A" vi-key))
+               (shifted-key-combo (format nil "s-~A" (string-upcase vi-key))))
+           (define-key *top-map* (kbd key-combo)
+             (format nil "move-focus ~A" name))
+           (define-key *top-map* (kbd shifted-key-combo)
+             (format nil "move-window ~A" name))))
+
+;; Base16-summerfruit
+(setf *colors* (list "#202020"      ; 0 black
+                     "#ff0086"      ; 1 Red
+                     "#00c918"      ; 2 Green
+                     "#aba800"      ; 3 Yellow
+                     "#3777e6"      ; 4 Blue
+                     "#ad00a1"      ; 5 Magenta
+                     "#1faaaa"      ; 6 Cyan
+                     "#ffffff"      ; 7 White
+                     "#505050"      ; 8 Gray
+                     "#fd8900"      ; 9 orange
+                     "#151515"))    ; 10 bg
+
+(set-fg-color         (nth 7 *colors*))
+(set-bg-color         (nth 10 *colors*))
+(set-border-color     (nth 2 *colors*))
+(set-focus-color      (nth 6 *colors* ))
+(set-unfocus-color    (nth 10 *colors* ))
+(set-float-focus-color      (nth 6 *colors* ))
+(set-float-unfocus-color    (nth 10 *colors* ))
+
+;; Configuration values
+(setf
+   *startup-message                 "Get shit done."
+   ;; Mouse settings
+   *mouse-focus-policy*             :sloppy
+   *grab-pointer-foreground* (xlib:make-color :red 1 :green 0 :blue 0.5)
+   *grab-pointer-character* 88
+   *grab-pointer-character-mask* 88
+   ;; Shell
+   *shell-program* (stumpwm:getenv "SHELL")
+   ;; Border settings
+   *maxsize-border-width*           1
+   *normal-border-width*            1
+   *transient-border-width*         1
+   *window-border-style*            :thin
+   *message-window-gravity*         :center
+   *timeout-wait*                   10
+   *input-window-gravity*           :center
+ )
+
+(update-color-map (current-screen))
+
+;;;; top-map splits
+(define-key *top-map* (kbd "s-u") "vsplit")
+(define-key *top-map* (kbd "s-o") "hsplit")
+(define-key *top-map* (kbd "s-r") "remove")
+(define-key *top-map* (kbd "s-f") "fullscreen")
+;; Quit menu
+(define-key *top-map* (kbd "s-)") "end-session")
+
+;; Launcher && terminal
+(define-key *top-map* (kbd "s-RET") (concat "run-shell-command exec " *terminal*))
+(define-key *top-map* (kbd "s-d") "run-shell-command rofi -show run")
+
+;; Slime server
+(in-package :stumpwm)
+(require :swank)
+(swank-loader:init)
+(swank:create-server :port 4004
+                     :style swank:*communication-style*
+                     :dont-close t)
+
+;; Stuff to run on startup
+
+(run-shell-command "volumeicon")
+(run-shell-command "xfce4-power-manager")
+(run-shell-command "nm-applet")
+(run-shell-command "blueman-adapter")
+(run-shell-command "blueman-applet")
+(run-shell-command "dunst")
+(run-shell-command "xrdb .Xresources")
+(run-shell-command "feh --bg-fill /home/notarock/Pictures/wallpaper/selected*")
+(run-shell-command "xset b off")
+
+(set-module-dir
+ (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/util")))
+
+(load-module "end-session")
+
+(load-module "pass")
+
+;; Set font
+(ql:quickload "clx-truetype")
+(load-module "ttf-fonts")
+(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 12))
+
+;; Workspace & navigation
+
+;; DEFAUT = 1
+(define-key *top-map* (kbd "s-1") "gselect 1")
+
+(gnewbg "EMACS") ;; 2
+(define-key *top-map* (kbd "s-2") "gselect 2")
+
+(gnewbg "TERM") ;; 3
+(define-key *top-map* (kbd "s-3") "gselect 3")
+
+(gnewbg "MISC") ;; 4
+(define-key *top-map* (kbd "s-4") "gselect 4")
+
+(gnewbg-float "FLOAT") ;; 5
+(define-key *top-map* (kbd "s-5") "gselect 5")
+
+(gnewbg "MUSIC") ;; 8
+(define-key *top-map* (kbd "s-8") "gselect 6")
+
+(gnewbg "MAIL") ;; 9
+(define-key *top-map* (kbd "s-9") "gselect 7")
+
+(define-key *top-map* (kbd "s-m") "gmove")
+
+(define-key *top-map* (kbd "s--") "gprev")
+(define-key *top-map* (kbd "s-=") "gnext")
+
+;; Show where is what
+(define-key *top-map* (kbd "s-0") "vgroups")
+
+
+;; Brightness & volumes control
+(defcommand backlight-up () ()
+  "Up backlight by 20"
+  (run-shell-command "xbacklight + 20"))
+
+(defcommand backlight-down () ()
+  "Up backlight by 20"
+  (run-shell-command "xbacklight - 20"))
+
+(defcommand volume-mute () ()
+  "Mute / Unmute volume"
+  (run-shell-command "amixer set Master toggle"))
+
+(defcommand volume-up () ()
+  "Mute / Unmute volume"
+  (run-shell-command "pactl -- set-sink-volume 0 +10% && notify-send 'Volume +10'"))
+
+(defcommand volume-down () ()
+  "Mute / Unmute volume"
+  (run-shell-command "pactl -- set-sink-volume 0 -10% && notify-send 'Volume -10'"))
+
+(define-key *top-map* (kbd "XF86MonBrightnessUp") "backlight-up")
+(define-key *top-map* (kbd "XF86MonBrightnessDown") "backlight-down")
+
+(define-key *top-map* (kbd "XF86AudioMute") "volume-mute")
+(define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume-up")
+(define-key *top-map* (kbd "XF86AudioLowerVolume") "volume-down")
+
+;; Show currently pressed key sequence
+(defun show-key-seq (key seq val)
+  (message (print-key-seq (reverse seq))))
+;; (add-hook *key-press-hook* 'show-key-seq)
+
+;; Recount windows number on kill
+(stumpwm:add-hook stumpwm:*destroy-window-hook*
+                  #'(lambda (win) (stumpwm:repack-window-numbers)))
+
+;; Web jump macro
+(defmacro make-web-jump (name prefix)
+  `(defcommand ,(intern name) (search) ((:rest ,(concatenate 'string name " search: ")))
+     (substitute #\+ #\Space search)
+     (run-shell-command (concatenate 'string ,prefix search "'"))))
+
+;; Define a duckduckgo search in firefox
+(make-web-jump "duckduckgo" "firefox 'https://duckduckgo.com/?q=")
+(define-key *top-map* (kbd "s-s") "duckduckgo")
+
+;; Load system tray
+(load-module "stumptray")
+
+;; Load mode-line configuration and activate system tray
+(load (concat (getenv "HOME") "/.config/stumpwm/mode-line.lisp"))
+(stumptray:stumptray)
+
+;; Open mail client
+(run-or-raise "thunderbird" '(:class "Thunderbird"))
+
+(defcommand adjust-new-display () ()
+  "Refresh heads to fit the new layout and restart stumptray"
+  (refresh-heads)         ;; Refresh mode-line and heads size after xrandr update
+  (stumptray:stumptray)   ;; Disable strumptray
+  (stumptray:stumptray)   ;; Enable strumptray, centered on the newly-placed mode-line
+  )
+
+(defcommand set-layout (file) ()
+  "Load a xrandr configuration and adjust display"
+  (message (concatenate 'string "Applying " file " layout...") )
+  (run-shell-command (concatenate 'string "~/.screenlayout/" file ".sh"))
+  (adjust-new-display)))
+
+(defcommand choose-display-layout () ()
+  "Interactivement chose a xrandr display config"
+  (let ((choice (select-from-menu (current-screen) *screen-layout-menu*
+                                  "Choose screen layout: ")))
+    (when choice
+      (set-layout (string-downcase (string (second choice)))))))
+
+(defvar *screen-layout-menu*
+  (list (list "Laptop 2k" "laptop")
+        (list "Bureau" "bureau")
+        (list "Work (2x 1080p)"  "work")
+        (list "Mirrored 1080p" "mirrored")))
+
+(define-key *top-map* (kbd "XF86Display") "choose-display-layout")
+
+;; End of file
