@@ -40,7 +40,9 @@
   "Refresh heads to fit the new layout and restart stumptray"
   (refresh-heads)         ;; Refresh mode-line and heads size after xrandr update
   (stumptray:stumptray)   ;; Disable strumptray
+  (refresh-heads)
   (stumptray:stumptray)   ;; Enable strumptray, centered on the newly-placed mode-line
+  (set-selected-wallpaper)
   )
 
 (defcommand set-layout (file) ()

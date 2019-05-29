@@ -43,8 +43,9 @@
 (run-shell-command "blueman-applet")
 (run-shell-command "dunst")
 (run-shell-command "xrdb .Xresources")
-(run-shell-command "feh --bg-fill ~/Pictures/wallpaper/selected*")
 (run-shell-command "xset b off")
+
+(set-selected-wallpaper)
 
 ;; Open and focus mail client
 (run-or-raise "thunderbird" '(:class "Thunderbird"))

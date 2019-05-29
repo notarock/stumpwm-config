@@ -36,6 +36,8 @@
 
 ;;;; change the prefix key to something else
 
+(in-package :stumpwm)
+
 ;;;; Defaults programs
 (setq *terminal* "kitty")
 (setq *browser* "firefox")
@@ -58,28 +60,25 @@
 (load (concat (getenv "HOME") "/.config/stumpwm/keybinding.lisp")) ;; Frame-preferences and groups mapping
 
 (if *initializing*
-(load (concat (getenv "HOME") "/.config/stumpwm/on-init.lisp")) ;; Frame-preferences and groups mapping
-)
+    (load (concat (getenv "HOME") "/.config/stumpwm/on-init.lisp")));; Frame-preferences and groups mapping
 
 ;; Set stumpwm values
-(setf
-   *startup-message                 "Get shit done."
-   ;; Mouse settings
-   *mouse-focus-policy*             :sloppy
-   *grab-pointer-foreground* (xlib:make-color :red 1 :green 0 :blue 0.5)
-   *grab-pointer-character* 88
-   *grab-pointer-character-mask* 88
-   ;; Shell
-   *shell-program* (stumpwm:getenv "SHELL")
-   ;; Border settings
-   *maxsize-border-width*           1
-   *normal-border-width*            1
-   *transient-border-width*         1
-   *window-border-style*            :thin
-   *message-window-gravity*         :center
-   *timeout-wait*                   10
-   *input-window-gravity*           :center
- )
+(setf *startup-message                 "Get shit done." )
+(setf *mouse-focus-policy*             :sloppy )
+(setf *shell-program* (stumpwm:getenv "SHELL") )
+(setf *maxsize-border-width*           1 )
+(setf *normal-border-width*            1 )
+(setf *transient-border-width*         1 )
+(setf *window-border-style*            :thin )
+(setf *message-window-gravity*         :center )
+(setf *timeout-wait*                   10 )
+(setf *input-window-gravity*           :center )
+
+(setf *grab-pointer-foreground* (xlib:make-color :red 0.1 :green 0.25 :blue 0.5))
+(setf *grab-pointer-background* (lookup-color (current-screen) "DeepSkyBlue"))
+
+(setf *grab-pointer-character*         71 )
+(setf *grab-pointer-character-mask*    71 )
 
 ;; Recount windows number on kill
 (stumpwm:add-hook stumpwm:*destroy-window-hook*
