@@ -36,32 +36,43 @@
 
 (in-package :stumpwm)
 
-(defcommand adjust-new-display () ()
+(defcommand set-dpi-2k () ()
+  "Set xResources DPI"
+  (run-shell-command "xrdb ~/.Xresource-2k"))
+
+(defcommand set-dpi-1080p () ()
+  "Set xResources DPI"
+  (run-shell-command "xrdb ~/.Xresource-1080p"))
+(defcommand adjust-new-display (resolution) ()
   "Refresh heads to fit the new layout and restart stumptray"
   (refresh-heads)         ;; Refresh mode-line and heads size after xrandr update
   (stumptray:stumptray)   ;; Disable strumptray
   (refresh-heads)
   (stumptray:stumptray)   ;; Enable strumptray, centered on the newly-placed mode-line
   (set-selected-wallpaper)
+  (if
+   (equal resolution "2k")(set-dpi-2k))
+  (if 
+   (equal resolution "1080p")(set-dpi-1080p))
   )
 
-(defcommand set-layout (file) ()
+(defcommand set-layout (args) ()
   "Load a xrandr configuration and adjust display"
-  (message (concatenate 'string "Applying " file " layout...") )
-  (run-shell-command (concatenate 'string "~/.screenlayout/" file ".sh"))
-  (adjust-new-display))
+  (message (concatenate 'string "Applying " (first args) " layout...") )
+  (run-shell-command (concatenate 'string "~/.screenlayout/" (first args) ".sh"))
+  (adjust-new-display (second args)))
 
 (defcommand choose-display-layout () ()
   "Interactivement chose a xrandr display config"
   (let ((choice (select-from-menu (current-screen) *screen-layout-menu*
                                   "Choose screen layout: ")))
     (when choice
-      (set-layout (string-downcase (string (second choice)))))))
+      (set-layout (list (string (second choice))(string (third choice)))))))
 
 (defvar *screen-layout-menu*
-  (list (list "Laptop 2k" "laptop")
-        (list "Bureau" "bureau")
-        (list "Work (2x 1080p)"  "work")
+  (list (list "Laptop 2k" "laptop" "2k")
+        (list "Bureau" "bureau" "1080p")
+        (list "Work (2x 1080p)"  "work" "1080p")
         (list "Mirrored 1080p" "mirrored")))
 
 ;; End of file
