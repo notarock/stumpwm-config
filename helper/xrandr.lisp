@@ -38,22 +38,27 @@
 
 (defcommand set-dpi-2k () ()
   "Set xResources DPI"
-  (run-shell-command "xrdb ~/.Xresource-2k"))
+  (run-shell-command "xrdb ~/.Xresource-2k")
+  (set-font-size 12)
+  )
 
 (defcommand set-dpi-1080p () ()
   "Set xResources DPI"
-  (run-shell-command "xrdb ~/.Xresource-1080p"))
+  (run-shell-command "xrdb ~/.Xresource-1080p")
+  (set-font-size 9)
+  )
+
 (defcommand adjust-new-display (resolution) ()
   "Refresh heads to fit the new layout and restart stumptray"
+  (if
+   (equal resolution "2k")(set-dpi-2k))
+  (if
+   (equal resolution "1080p")(set-dpi-1080p))
   (refresh-heads)         ;; Refresh mode-line and heads size after xrandr update
   (stumptray:stumptray)   ;; Disable strumptray
   (refresh-heads)
   (stumptray:stumptray)   ;; Enable strumptray, centered on the newly-placed mode-line
   (set-selected-wallpaper)
-  (if
-   (equal resolution "2k")(set-dpi-2k))
-  (if 
-   (equal resolution "1080p")(set-dpi-1080p))
   )
 
 (defcommand set-layout (args) ()

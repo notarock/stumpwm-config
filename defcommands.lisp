@@ -74,6 +74,8 @@
   "Set /Pictures/wallpaper/selected.png as wallpaper"
   (run-shell-command "feh --bg-fill ~/Pictures/wallpaper/selected*"))
 
+
+
 ;; Load helpers
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/xrandr.lisp")) ;; Frame-preferences and groups mapping
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/web-jump.lisp")) ;; Frame-preferences and groups mapping

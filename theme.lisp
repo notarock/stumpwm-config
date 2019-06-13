@@ -65,7 +65,10 @@
 
 (update-color-map (current-screen))
 
-;; Font configuration
-(set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size 12))
+(defcommand set-font-size (size) ()
+  "Set xResources DPI"
+  (set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size size)))
+
+(set-font-size 12)
 
 ;; End of file
