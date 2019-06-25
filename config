@@ -42,18 +42,9 @@
 (setq *terminal* "kitty")
 (setq *browser* "firefox")
 
-;;; Load modules
-(set-module-dir
- (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/util")))
-
-(load-module "end-session")
-(load-module "pass")
-(load-module "stumptray")
-(load-module "ttf-fonts")
-
-(ql:quickload "clx-truetype") ;; Used for font rendering
-
 ;;; Load extra configuration files
+
+(load (concat (getenv "HOME") "/.config/stumpwm/modules.lisp")) ;; color-scheme
 (load (concat (getenv "HOME") "/.config/stumpwm/theme.lisp")) ;; color-scheme
 (load (concat (getenv "HOME") "/.config/stumpwm/groups.lisp")) ;; Frame-preferences and groups mapping
 (load (concat (getenv "HOME") "/.config/stumpwm/defcommands.lisp")) ;; Frame-preferences and groups mapping
@@ -86,6 +77,5 @@
 
 ;; Load mode-line configuration and activate system tray
 (load (concat (getenv "HOME") "/.config/stumpwm/mode-line.lisp"))
-(stumptray:stumptray)
 
 ;; End of file

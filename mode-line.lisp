@@ -34,16 +34,6 @@
 ;;; Code:
 
 (in-package :stumpwm)
-
-;; mode-line utility modules
-(set-module-dir
- (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/modeline")))
-
-(load-module "cpu")
-(load-module "mem")
-(load-module "net")
-(load-module "wifi")
-
 (setf *time-modeline-string* "%a %m-%d ^5*^B%l:%M^b^n")
 
 (setq stumpwm:*mode-line-position* :top)
@@ -80,4 +70,6 @@
   (enable-mode-line (current-screen) head
                     t *screen-mode-line-format*))
 
+(stumptray:stumptray)
 
+;; End of file

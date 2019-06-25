@@ -37,25 +37,25 @@
 
 ;; Current Color Scheme :
 ;; Base16-summerfruit
-(setf *colors* (list "#202020"      ; 0 black
-                     "#ff0086"      ; 1 Red
-                     "#00c918"      ; 2 Green
-                     "#aba800"      ; 3 Yellow
-                     "#3777e6"      ; 4 Blue
-                     "#ad00a1"      ; 5 Magenta
-                     "#1faaaa"      ; 6 Cyan
-                     "#ffffff"      ; 7 White
+(setf *colors* (list "#101010"      ; 0 black
+                     "#960050"      ; 1 Red
+                     "#66aa11"      ; 2 Green
+                     "#c47f2c"      ; 3 Yellow
+                     "#30309b"      ; 4 Blue
+                     "#7e40a5"      ; 5 Magenta
+                     "#3579a8"      ; 6 Cyan
+                     "#9999aa"      ; 7 White
                      "#505050"      ; 8 Gray
-                     "#fd8900"      ; 9 orange
-                     "#151515"))    ; 10 bg
+                     "#ffba68"      ; 9 orange
+                     "#101010"))    ; 10 bg
 
 (set-fg-color         (nth 7 *colors*))
 (set-bg-color         (nth 10 *colors*))
 (set-border-color     (nth 2 *colors*))
-(set-focus-color      (nth 6 *colors* ))
-(set-unfocus-color    (nth 10 *colors* ))
-(set-float-focus-color      (nth 6 *colors* ))
-(set-float-unfocus-color    (nth 10 *colors* ))
+(set-focus-color      (nth 1 *colors* ))
+(set-unfocus-color    (nth 4 *colors* ))
+(set-float-focus-color      (nth 1 *colors* ))
+(set-float-unfocus-color    (nth 4 *colors* ))
 
 ;; (setf *grab-pointer-foreground* (nth 7 *colors*))
 ;; (setf *grab-pointer-background* (nth 7 *colors*))
@@ -66,7 +66,7 @@
 (update-color-map (current-screen))
 
 (defcommand set-font-size (size) ()
-  "Set xResources DPI"
+  "Set the font size of mode-line and stumwpm"
   (set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size size)))
 
 (set-font-size 12)
