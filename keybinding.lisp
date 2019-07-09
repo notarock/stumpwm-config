@@ -71,6 +71,12 @@
 ;; Show programs in every workspaces
 (define-key *top-map* (kbd "s-0") "vgroups")
 
+;; Toggle gaps
+(define-key *top-map* (kbd "s-g") "toggle-gaps")
+
+;; Banish cursor
+(define-key *top-map* (kbd "s-b") "banish")
+
 ;; Launcher && terminal
 (define-key *top-map* (kbd "s-RET") (concat "run-shell-command exec " "kitty"))
 (define-key *top-map* (kbd "s-d") "run-shell-command rofi -show run")

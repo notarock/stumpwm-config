@@ -42,6 +42,7 @@
 (load-module "end-session")
 (load-module "pass")
 (load-module "ttf-fonts")
+(load-module "swm-gaps")
 
 ;; mode-line utility modules
 (set-module-dir
