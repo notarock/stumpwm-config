@@ -77,8 +77,8 @@
 (defvar *screen-layout-menu*
   (list (list "Laptop 2k" "laptop" "2k")
         (list "Bureau" "bureau" "1080p")
-        (list "Cedille" "cedille" "2k")
+        (list "Cedille" "cedille" "1080p")
         (list "Work (2x 1080p)"  "work" "1080p")
-        (list "Mirrored 1080p" "mirrored")))
+        (list "Mirrored 1080p" "mirrored" "1080p")))
 
 ;; End of file

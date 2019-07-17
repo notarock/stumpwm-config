@@ -72,7 +72,7 @@
 
 (defcommand set-selected-wallpaper () ()
   "Set /Pictures/wallpaper/selected.png as wallpaper"
-  (run-shell-command "feh --bg-tile ~/Pictures/wallpaper/selected*"))
+  (run-shell-command "feh --bg-scale ~/Pictures/wallpaper/selected*"))
 
 ;; Load helpers
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/xrandr.lisp")) ;; Frame-preferences and groups mapping
