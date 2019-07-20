@@ -37,12 +37,13 @@
 
 ;;; Load modules
 (set-module-dir
- (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/util")))
+ (pathname-as-directory (concat (getenv "HOME") ".config/stumpwm/stumpwm-contrib/util")))
 
 (load-module "end-session")
 (load-module "pass")
 (load-module "ttf-fonts")
 (load-module "swm-gaps")
+(load-module "swm-golden-ratio")
 
 ;; mode-line utility modules
 (set-module-dir
