@@ -37,13 +37,14 @@
 
 ;;; Load modules
 (set-module-dir
- (pathname-as-directory (concat (getenv "HOME") ".config/stumpwm/stumpwm-contrib/util")))
+ (pathname-as-directory (concat (getenv "HOME") "/src/notarock/stumpwm-contrib/util")))
 
 (load-module "end-session")
 (load-module "pass")
 (load-module "ttf-fonts")
 (load-module "swm-gaps")
 (load-module "swm-golden-ratio")
+(load-module "productivity")
 
 ;; mode-line utility modules
 (set-module-dir

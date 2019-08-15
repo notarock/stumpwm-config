@@ -98,6 +98,8 @@
 (define-key *root-map* (kbd "p")            "pass-copy-menu")
 (define-key *root-map* (kbd "s-p")            "pass-copy-menu")
 
+(define-key *top-map* (kbd "s-Delete") "productivity-mode-toggle")
+
 ;; Quit menu
 (define-key *top-map* (kbd "s-)") "end-session")
 ;; Web search
