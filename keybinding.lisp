@@ -102,6 +102,7 @@
 
 ;; Quit menu
 (define-key *top-map* (kbd "s-)") "end-session")
+(define-key *top-map* (kbd "XF86PowerOff") "end-session")
 ;; Web search
 (define-key *top-map* (kbd "s-s") "duckduckgo")
 ;; Select xrandr configuration (uses ~/.screensession folder)

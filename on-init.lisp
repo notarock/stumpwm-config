@@ -44,6 +44,7 @@
 (run-shell-command "dunst")
 (run-shell-command "xrdb .Xresources")
 (run-shell-command "xset b off")
+(run-shell-command "compton")
 
 (set-selected-wallpaper)
 
@@ -53,8 +54,11 @@
 ;; Start swank server for use with Slime
 (require :swank)
 (swank-loader:init)
-(swank:create-server :port 4004
-                     :style swank:*communication-style*
-                     :dont-close t)
+(handler-case (swank:create-server :port 4004
+                                   :style swank:*communication-style*
+                                   :dont-close t)
+  (error (c)
+    nil))
+
 
 ;; End of file
