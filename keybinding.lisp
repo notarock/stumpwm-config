@@ -110,4 +110,6 @@
 
 (define-key *top-map* (kbd "s-R") "ask-confirmation-loadrc")
 
+(define-key *root-map* (kbd "s-l")            "lock-screen")
+
 ;; End of file

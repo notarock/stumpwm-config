@@ -78,4 +78,6 @@
 ;; Load mode-line configuration and activate system tray
 (load (concat (getenv "HOME") "/.config/stumpwm/mode-line.lisp"))
 
+(swm-golden-ratio:toggle-golden-ratio)
+
 ;; End of file

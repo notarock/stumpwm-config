@@ -71,11 +71,11 @@
 (set-font-size 12)
 
 ;; Head gaps run along the 4 borders of the monitor(s)
-(setf swm-gaps:*head-gaps-size* 0)
+(setf swm-gaps:*head-gaps-size* 5)
 ;; Inner gaps run along all the 4 borders of a window
-(setf swm-gaps:*inner-gaps-size* 10)
+(setf swm-gaps:*inner-gaps-size* 15)
 ;; Outer gaps add more padding to the outermost borders of a window (touching the screen border)
-(setf swm-gaps:*outer-gaps-size* 0)
+(setf swm-gaps:*outer-gaps-size* 5)
 
 ;; This function is undefined when using quicklisp's stumpwm package, causing crashes when executing toggle-gaps
 ;; It was copied from the stumpwm's master branch as a simple fix

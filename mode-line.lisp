@@ -36,7 +36,7 @@
 (in-package :stumpwm)
 (setf *time-modeline-string* "%a %m-%d ^5*^B%l:%M^b^n")
 
-(setq stumpwm:*mode-line-position* :top)
+(setq stumpwm:*mode-line-position* :bottom)
 
 (setf *mode-line-background-color* (nth 10 *colors*))
 
