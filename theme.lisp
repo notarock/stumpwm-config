@@ -37,16 +37,16 @@
 
 ;; Current Color Scheme :
 ;; Gruvbox-dark
-(setf *colors* (list "#282828"      ; 0 black
-                     "#cc241d"      ; 1 Red
-                     "#98971a"      ; 2 Green
-                     "#d79921"      ; 3 Yellow
-                     "#458588"      ; 4 Blue
-                     "#b16286"      ; 5 Magenta
-                     "#689d6a"      ; 6 Cyan
-                     "#ebdbb2"      ; 7 White
-                     "#a89984"      ; 8 Gray
-                     "#fabd2f"      ; 9 orange
+(setf *colors* (list "#1d2021"      ; 0 black
+                     "#d72638"      ; 1 Red
+                     "#88b92d"      ; 2 Green
+                     "#f19d1a"      ; 3 Yellow
+                     "#1ba595"      ; 4 Blue
+                     "#be4264"      ; 5 Magenta
+                     "#1e8bac"      ; 6 Cyan
+                     "#e5e5e5"      ; 7 White
+                     "#383c3e"      ; 8 Gray
+                     "#c85e0d"      ; 9 orange
                      "#1d2021"))    ; 10 bg
 
 (set-fg-color        (nth 7 *colors*))
@@ -54,8 +54,8 @@
 (set-border-color    (nth 3 *colors*))
 (set-focus-color     (nth 3 *colors* ))
 (set-unfocus-color    (nth 0 *colors* ))
-(set-float-focus-color      (nth 0 *colors* ))
-(set-float-unfocus-color    (nth 3 *colors* ))
+(set-float-focus-color      (nth 3 *colors* ))
+(set-float-unfocus-color    (nth 0 *colors* ))
 
 ;; (setf *grab-pointer-foreground* (nth 7 *colors*))
 ;; (setf *grab-pointer-background* (nth 7 *colors*))
