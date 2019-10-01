@@ -38,13 +38,13 @@
 
 (defcommand set-dpi-2k () ()
   "Set xResources DPI"
-  (run-shell-command "xrdb ~/.Xresource-2k")
+  (run-shell-command "xrdb ~/.Xresources-2k")
   (set-font-size 12)
   )
 
 (defcommand set-dpi-1080p () ()
   "Set xResources DPI"
-  (run-shell-command "xrdb ~/.Xresource-1080p")
+  (run-shell-command "xrdb ~/.Xresources-1080p")
   (set-font-size 9)
   )
 
