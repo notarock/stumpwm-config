@@ -64,16 +64,16 @@
 
 (update-color-map (current-screen))
 
-(defcommand set-font-size (size) ()
-  "Set the font size of mode-line and stumwpm"
-  (set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size size)))
+;; (defcommand set-font-size (size) ()
+  ;; "Set the font size of mode-line and stumwpm"
+  ;; (set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size size)))
 
-(set-font-size 12)
+;; (set-font-size 12)
 
 ;; Head gaps run along the 4 borders of the monitor(s)
 (setf swm-gaps:*head-gaps-size* 0)
 ;; Inner gaps run along all the 4 borders of a window
-(setf swm-gaps:*inner-gaps-size* 5)
+(setf swm-gaps:*inner-gaps-size* 10)
 ;; Outer gaps add more padding to the outermost borders of a window (touching the screen border)
 (setf swm-gaps:*outer-gaps-size* 0)
 

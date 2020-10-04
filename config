@@ -35,7 +35,6 @@
 ;;; Code:
 
 ;;;; change the prefix key to something else
-
 (in-package :stumpwm)
 
 ;;;; Defaults programs
@@ -54,7 +53,7 @@
     (load (concat (getenv "HOME") "/.config/stumpwm/on-init.lisp")));; Frame-preferences and groups mapping
 
 ;; Set stumpwm values
-(setf *startup-message                 "Get shit done." )
+(setf *startup-message                 "Here we go." )
 (setf *mouse-focus-policy*             :sloppy )
 (setf *shell-program* (stumpwm:getenv "SHELL") )
 (setf *maxsize-border-width*           1 )
@@ -78,6 +77,6 @@
 ;; Load mode-line configuration and activate system tray
 (load (concat (getenv "HOME") "/.config/stumpwm/mode-line.lisp"))
 
-(swm-golden-ratio:toggle-golden-ratio)
+;; (swm-golden-ratio:toggle-golden-ratio)
 
 ;; End of file

@@ -37,18 +37,18 @@
 
 ;;; Load modules
 (set-module-dir
- (pathname-as-directory (concat (getenv "HOME") "/src/notarock/stumpwm-contrib/util")))
+ (pathname-as-directory (concat (getenv "HOME") "/.config/stumpwm/stumpwm-contrib/util")))
 
-(load-module "end-session")
 (load-module "pass")
-(load-module "ttf-fonts")
+(load-module "end-session")
+;; (load-module "ttf-fonts")
 (load-module "swm-gaps")
 (load-module "swm-golden-ratio")
 (load-module "productivity")
 
-;; mode-line utility modules
+;; ;; mode-line utility modules
 (set-module-dir
- (pathname-as-directory (concat (getenv "HOME") "/src/builds/stumpwm-contrib/modeline")))
+ (pathname-as-directory (concat (getenv "HOME") "/.config/stumpwm/stumpwm-contrib/modeline")))
 
 (load-module "cpu")
 (load-module "mem")
@@ -57,6 +57,6 @@
 (load-module "stumptray")
 
 ;; Additionnal lisp modules extensions
-(ql:quickload "clx-truetype") ;; Used for font rendering
+; (ql:quickload "clx-truetype") ;; Used for font rendering
 
 ;; End of file

@@ -44,12 +44,12 @@
 (run-shell-command "dunst")
 (run-shell-command "xrdb .Xresources")
 (run-shell-command "xset b off")
-(run-shell-command "compton")
+(run-shell-command "bash ~/.screenlayout/bureau.sh ")
 
 (set-selected-wallpaper)
 
 ;; Open and focus mail client
-(run-or-raise "thunderbird" '(:class "Thunderbird"))
+;; (run-or-raise "thunderbird" '(:class "Thunderbird"))
 
 ;; Start swank server for use with Slime
 (require :swank)

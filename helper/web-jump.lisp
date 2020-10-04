@@ -1,4 +1,3 @@
-
 ; -*- mode: lisp; -*-
 ;                                   _            ,__ __
 ;    ()                            (_|   |   |_//|  |  |
@@ -43,6 +42,7 @@
      (run-shell-command (concatenate 'string ,prefix search "'"))))
 
 ;; Define a duckduckgo search in firefox
-(make-web-jump "duckduckgo" "firefox 'https://duckduckgo.com/?q=") ;; TODO: Make uses of global var *browser*
+;;;; TODO: Make uses of global var *browser*
+(make-web-jump "duckduckgo" "firefox 'https://duckduckgo.com/?q=")
 
 ;; End of file

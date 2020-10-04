@@ -1,3 +1,3 @@
 [submodule "stumpwm-contrib"]
 	path = stumpwm-contrib
-	url = git@github.com:notarock/stumpwm-contrib.git
+	url = git@github.com:stumpwm/stumpwm-contrib.git
