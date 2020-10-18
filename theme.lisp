@@ -38,24 +38,24 @@
 ;; Current Color Scheme :
 ;; Gruvbox-dark
 (setf *colors* (list "#1d2021"      ; 0 black
-                     "#d72638"      ; 1 Red
-                     "#88b92d"      ; 2 Green
-                     "#f19d1a"      ; 3 Yellow
-                     "#1ba595"      ; 4 Blue
-                     "#be4264"      ; 5 Magenta
-                     "#1e8bac"      ; 6 Cyan
-                     "#e5e5e5"      ; 7 White
-                     "#383c3e"      ; 8 Gray
-                     "#c85e0d"      ; 9 orange
-                     "#1d2021"))    ; 10 bg
+                     "#fb543f"      ; 1 Red
+                     "#95c085"      ; 2 Green
+                     "#fac03b"      ; 3 Yellow
+                     "#0d6678"      ; 4 Blue
+                     "#8ba59b"      ; 5 Cyan
+                     "#8f4673"      ; 6 Magenta
+                     "#a89984"      ; 7 White
+                     "#665c54"      ; 8 Gray
+                     "#fe8625"      ; 9 orange
+                     "#32302f"))    ; 10 bg
 
 (set-fg-color        (nth 7 *colors*))
-(set-bg-color        (nth 10 *colors*))
+(set-bg-color        (nth 0 *colors*))
 (set-border-color    (nth 3 *colors*))
 (set-focus-color     (nth 3 *colors* ))
-(set-unfocus-color    (nth 0 *colors* ))
+(set-unfocus-color    (nth 8 *colors* ))
 (set-float-focus-color      (nth 3 *colors* ))
-(set-float-unfocus-color    (nth 0 *colors* ))
+(set-float-unfocus-color    (nth 8 *colors* ))
 
 ;; (setf *grab-pointer-foreground* (nth 7 *colors*))
 ;; (setf *grab-pointer-background* (nth 7 *colors*))
@@ -66,8 +66,8 @@
 
 ;; (defcommand set-font-size (size) ()
   ;; "Set the font size of mode-line and stumwpm"
-  ;; (set-font (make-instance 'xft:font :family "DejaVu Sans Mono" :subfamily "Book" :size size)))
-
+  ;; (set-font (make-instance 'xft:font :family "Essential PragmataPro" :subfamily "Regular" :size size)))
+;;
 ;; (set-font-size 12)
 
 ;; Head gaps run along the 4 borders of the monitor(s)

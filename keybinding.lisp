@@ -91,6 +91,8 @@
 (define-key *top-map* (kbd "XF86AudioRaiseVolume") "volume-up")
 (define-key *top-map* (kbd "XF86AudioLowerVolume") "volume-down")
 
+(define-key *top-map* (kbd "s-S") "screenshot")
+
 ;; Add "run-or-raises" programs to root-map
 (define-key *root-map* (kbd "f")            "firefox")
 (define-key *root-map* (kbd "s-f")            "firefox")

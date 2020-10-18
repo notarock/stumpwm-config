@@ -78,6 +78,10 @@
   "Uses ~/bin/lockscreen.sh to lock the screen"
   (run-shell-command "~/bin/lockscreen.sh"))
 
+(defcommand screenshot () ()
+  "Launch flameshot"
+  (run-shell-command "flameshot gui"))
+
 ;; Load helpers
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/xrandr.lisp")) ;; Frame-preferences and groups mapping
 (load (concat (getenv "HOME") "/.config/stumpwm/helper/web-jump.lisp")) ;; Frame-preferences and groups mapping

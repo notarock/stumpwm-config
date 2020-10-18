@@ -45,6 +45,7 @@
 (run-shell-command "xrdb .Xresources")
 (run-shell-command "xset b off")
 (run-shell-command "bash ~/.screenlayout/bureau.sh ")
+(run-shell-command "picom --backend=xrender")
 
 (set-selected-wallpaper)
 
@@ -59,6 +60,8 @@
                                    :dont-close t)
   (error (c)
     nil))
+
+
 
 
 ;; End of file
