@@ -101,6 +101,12 @@
 (define-key *root-map* (kbd "p")            "pass-copy-menu")
 (define-key *root-map* (kbd "s-p")            "pass-copy-menu")
 
+(define-key *top-map* (kbd "s-1") "gselect 1")
+(define-key *top-map* (kbd "s-2") "gselect 2")
+(define-key *top-map* (kbd "s-3") "gselect 3")
+(define-key *top-map* (kbd "s-4") "gselect 4")
+
+
 (define-key *top-map* (kbd "s-Delete") "productivity-mode-toggle")
 
 ;; Quit menu

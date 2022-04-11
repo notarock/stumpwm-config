@@ -7,7 +7,7 @@
 ;                           /|
 ;                           \|
 ;    __
-;   / ()  _        |\ o  _,
+;   / ()  _        |\ O  _,
 ;  |     / \_/|/|  |/ | / |
 ;   \___/\_/  | |_/|_/|/\/|/
 ;                  |)    (|
@@ -65,10 +65,21 @@
 (update-color-map (current-screen))
 
 ;; (defcommand set-font-size (size) ()
-  ;; "Set the font size of mode-line and stumwpm"
-  ;; (set-font (make-instance 'xft:font :family "Essential PragmataPro" :subfamily "Regular" :size size)))
-;;
-;; (set-font-size 12)
+;; "Set the font size of mode-line and stumwpm"
+;; (set-font (make-instance 'xft:font :family "DejaVu Sans Mono Book" :size size)))
+
+;; (set-font-size 14)
+
+(set-font "-*-unifont-medium-r-*-*-17-*-*-*-*-*-*-*")
+
+;; (asdf:make "ttf-fonts") ; This is equivalent to LOAD-MODULE
+;; (setq clx-truetype::*font-dirs*
+;;         (append (list (namestring (concat (getenv "HOME") "/.local/share/fonts")))
+;;                 clx-truetype::*font-dirs*))
+;; (set-font (make-instance 'xft:font
+;;                           :family "Essential PragmataPro"
+;;                           :subfamily "Regular"
+;;                           :size 20))
 
 ;; Head gaps run along the 4 borders of the monitor(s)
 (setf swm-gaps:*head-gaps-size* 0)
