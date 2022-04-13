@@ -71,6 +71,7 @@
                 clx-truetype::*font-dirs*)))
 (add-font-folder (concat (getenv "HOME") "/.local/share/fonts"))
 (add-font-folder "/run/current-system/profile/share/fonts/")
+(setf clx-truetype::+font-cache-filename+ (concat (getenv "HOME") "/.fonts/font-cache.sexp"))
 (xft:cache-fonts)
 (set-font (make-instance 'xft:font :family "Essential PragmataPro" :subfamily "Regular" :size 10))
 
