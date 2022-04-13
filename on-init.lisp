@@ -2,6 +2,7 @@
 ;                                   _            ,__ __
 ;    ()                            (_|   |   |_//|  |  |
 ;    /\_|_         _  _  _     _     |   |   |   |  |  |
+;    a
 ;   /  \|  |   |  / |/ |/ |  |/ \_   |   |   |   |  |  |
 ;  /(__/|_/ \_/|_/  |  |  |_/|__/     \_/ \_/    |  |  |_/
 ;                           /|
@@ -52,15 +53,13 @@
 ;; Open and focus mail client
 ;; (run-or-raise "thunderbird" '(:class "Thunderbird"))
 
-;; Start swank server for use with Slime
-(require :swank)
-(swank-loader:init)
-(handler-case (swank:create-server :port 4004
-                                   :style swank:*communication-style*
-                                   :dont-close t)
-  (error (c)
-    nil))
+(require 'slynk)
 
+(defcommand slynk (port) ((:string "Port number: "))
+  (sb-thread:make-thread
+   (lambda ()
+     (slynk:create-server :port (parse-integer port) :dont-close t))
+   :name "slynk-manual"))
 
 
 
