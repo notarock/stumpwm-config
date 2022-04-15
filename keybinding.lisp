@@ -71,10 +71,6 @@
 ;; Show programs in every workspaces
 (define-key *top-map* (kbd "s-0") "vgroups")
 
-;; Toggle gaps
-(define-key *top-map* (kbd "s-g") "toggle-gaps")
-(define-key *top-map* (kbd "s-G") "toggle-golden-ratio")
-
 ;; Banish cursor
 (define-key *top-map* (kbd "s-b") "banish")
 

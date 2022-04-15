@@ -75,22 +75,6 @@
 (xft:cache-fonts)
 (set-font (make-instance 'xft:font :family "Essential PragmataPro" :subfamily "Regular" :size 10))
 
-;; Head gaps run along the 4 borders of the monitor(s)
-(setf swm-gaps:*head-gaps-size* 0)
-;; Inner gaps run along all the 4 borders of a window
-(setf swm-gaps:*inner-gaps-size* 10)
-;; Outer gaps add more padding to the outermost borders of a window (touching the screen border)
-(setf swm-gaps:*outer-gaps-size* 0)
-
 (stumpwm::single-frame-p)
-
-;; This function is undefined when using quicklisp's stumpwm package, causing crashes when executing toggle-gaps
-;; It was copied from the stumpwm's master branch as a simple fix
-;; source: https://github.com/stumpwm/stumpwm/blob/master/tile-window.lisp#L218
-(defun only-tile-windows (windows)
-  (remove-if-not (lambda (w) (typep w 'tile-window))
-                 windows))
-
-(swm-gaps:toggle-gaps)
 
 ;; End of file

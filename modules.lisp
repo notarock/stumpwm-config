@@ -42,8 +42,6 @@
 (load-module "pass")
 (load-module "end-session")
 (load-module "ttf-fonts")
-(load-module "swm-gaps")
-(load-module "swm-golden-ratio")
 (load-module "productivity")
 
 ;; ;; mode-line utility modules
