@@ -1,5 +1,8 @@
 # Notarock's StumpWM Configurations
 
+[Everything has moved here](https://github.com/notarock/dotfiles/tree/master/notarock/stumpwm)
+
+
 ![screenshot](screenshot/sc.png)
 
 Configuration files for the [Stump Window Manager](https://github.com/stumpwm/stumpwm)
